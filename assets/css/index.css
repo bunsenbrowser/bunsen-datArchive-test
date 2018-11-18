@@ -1,0 +1,24 @@
+html *
+{
+    font-family: Roboto;
+    /*background: #673ab7;*/
+    /*color: #FFF;*/
+}
+
+.flex-grid {
+    display: flex;
+    width:300px;
+}
+
+.col {
+    flex: 1;
+}
+
+.header {
+    font-size: 3em;
+    padding-top: 16px;
+}
+
+.divSpacer {
+    margin-top:10px;
+}
