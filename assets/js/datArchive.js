@@ -9,13 +9,6 @@ class DatArchive {
     }
 
     async readFile(path, filename) {
-        // console.log('DatArchive API wants to read: ' + path);
-        // path = path.replace('dat://','')
-        // const url = GATEWAY_URL + path
-        // let response = await fetch(url)
-        // let data = await response.json();
-        // return JSON.stringify(data);
-
         console.log('I want to readFile: ' + path);
         const url = this.url
         // const resource = url.replace('dat://','')
@@ -146,10 +139,10 @@ class DatArchive {
         }
     }
 
-    async watch(opts) {
+    async watch(pathSpec) {
         const url = this.url
         console.log('I want to watch: ' + url);
-        const data = {url:url, opts:opts}
+        const data = {url:url, pathSpec:pathSpec}
         const appUrl = DATARCHIVE_URL + 'watch'
         let response = await fetch(appUrl,{
             method: "POST",
@@ -166,6 +159,39 @@ class DatArchive {
         let result = await response.json();
         // return JSON.stringify(result);
         return result;
+    }
+
+    async writeFile(text, filename) {
+        console.log('I want to writeFile: ' + text);
+        const url = this.url
+        // const resource = url.replace('dat://','')
+        const data = {url:url,filename: filename,text: text}
+        const appUrl = DATARCHIVE_URL + 'writeFile'
+        let response = await fetch(appUrl,{
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin", // include, same-origin, *omit
+            headers: {
+                "Content-Type": "application/json; charset=utf-8",
+            },
+            redirect: "follow", // manual, *follow, error
+            referrer: "no-referrer", // no-referrer, *client
+            body: JSON.stringify(data), // body data type must match "Content-Type" header
+        })
+        let result;
+        try {
+            result = await response;
+            if (response.status === 400) {
+                return response.statusText;
+            } else {
+                return result;
+            }
+
+        } catch (e) {
+            alert("Error: " + e)
+            console.log("Error: " + e)
+        }
     }
 
     static readFile(path, opts) {
