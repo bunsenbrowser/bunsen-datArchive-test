@@ -1,7 +1,7 @@
 const GATEWAY_URL = "http://localhost:3000/"
 const DATARCHIVE_URL = "http://localhost:3001/"
 const BASE_32_KEY_LENGTH = 52
-class DatArchive {
+class DatArchiveProxy {
 
     constructor(url) {
         this.url = url
@@ -220,6 +220,6 @@ if (!window.DatArchive) {
 }
 
 function doPolyfill () {
-    window.DatArchive = DatArchive
+    window.DatArchive = DatArchiveProxy
 }
 
